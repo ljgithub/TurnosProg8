@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <body>       
+        <!-- Lo que escribamos aquí NO aquí se va a renderizar. -->
+        Esto seguro que no lo ves.
+
+
+        <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                        template="/welcomePrimefaces.xhtml"
+                        xmlns:p="http://primefaces.org/ui"
+                        xmlns:h="http://xmlns.jcp.org/jsf/html">
+            <ui:define name="top">
+                Mantenimiento Cliente
+            </ui:define>
+
+            <ui:define name="left">
+                Sidebar Content
+            </ui:define>
+
+            <ui:define name="content">              
+                <h:form>      
+                    <p:growl id="growl" life="2000" />
+                    <p:panelGrid columns ="2" >
+                        
+                                                 
+                        <p:outputLabel value="NOMBRES" class="label"/>
+                        <p:inputText   value="${empleadoView.nombres}"/>
+                        
+                        <p:outputLabel value="TELEFONO" class="label"/>                          
+                        <p:inputText   value="${empleadoView.telefono}"/> 
+                        
+                         <!--<p:outputLabel value="ID" class="label"/>-->           
+                        <!--<p:inputText   value="#{empleadoView.idEmple}"/>-->
+                        
+                    </p:panelGrid>
+                    <p:commandButton value="Guardar" id="withIcon" action="#{empleadoView.insertarEmpleado()}" update="growl" style="margin-right:20px;" icon="pi pi-save" />
+                </h:form>
+
+                <p:separator></p:separator>
+                <p:panel>
+                    <h:panelGrid>
+                        <p:dataTable id="dt_Empleado" var = "listEmpleado" widgetVar="dt_Empleado"
+                                     rows="3"
+                                     paginator="true"
+                                     paginatorPosition="bottom"
+                                     scrollable="true"
+                                     value="#{empleadoView.listarEmp}"
+                                     >
+                            <p:column headerText="ID" sortBy="#{listEmpleado.idEmple}">
+                                <h:outputText value="#{listEmpleado.idEmple}"/>
+                            </p:column>                            
+                            <p:column headerText="NOMBRES" >
+                                <h:outputText value="#{listEmpleado.nombres}"/>
+                            </p:column>
+                            <p:column headerText="TELEFONO" >
+                                <h:outputText value="#{listEmpleado.telefono}"/>
+                            </p:column>                           
+                        </p:dataTable>
+                    </h:panelGrid>
+
+                </p:panel>
+            </ui:define>
+
+            <ui:define name="bottom">
+                Universidad Tecnológica Israel
+            </ui:define>
+
+        </ui:composition>
+    </body>
+</html>
+
+
