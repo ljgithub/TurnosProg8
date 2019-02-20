@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>PrimeFaces</title>
+            </f:facet>
+        </h:head>
+
+        <h:body>
+
+            <p:layout fullPage="true">
+
+                <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
+                    <ui:insert name = "top">
+                        
+                    </ui:insert>
+                    
+                </p:layoutUnit>
+
+                <p:layoutUnit  position="south" size="100" closable="true" collapsible="true">
+                    <ui:insert name="bottom">
+                    
+                    </ui:insert>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="west" size="175" header="MENU PRINCIPAL" collapsible="true">
+                    <p:menu>
+                        <p:submenu label="Base">                            
+                            <p:menuitem value="Empleado" outcome="/Paginas/Empleado.xhtml"/>
+                            <p:menuitem value="Grupo" outcome="/Paginas/Grupo.xhtml"/>
+                            <p:menuitem value="Turno" outcome="/Paginas/Turno.xhtml"/>                                                       
+                         </p:submenu>
+                        <p:submenu label="Reporte">
+                            <p:menuitem value="Turnos Virtuales" outcome="/Paginas/TurnosVirtuales.xhtml"/>
+                        </p:submenu>  
+
+                    </p:menu>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="center">
+                    Welcome to PrimeFaces
+                    <ui:insert name="content">
+                        
+                    </ui:insert>
+                </p:layoutUnit>
+
+            </p:layout>
+
+        </h:body>
+
+    </f:view>
+</html>
+
