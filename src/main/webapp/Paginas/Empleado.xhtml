@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <style type="text/css">
+            .value {
+                font-weight: bold;
+            }
+
+            .ui-datatable {
+                margin-bottom: 25px
+            }
+
+            .ui-datatable .ui-datatable-footer {
+                text-align:left;
+            }
+
+            .ui-datalist ul {
+                padding: 0 0 0 10px;
+                margin: 5px 0;
+            }
+
+            .ui-datatable .ui-button-icon-only .ui-button-text {
+                padding: 0;
+                line-height: 1.2;
+            }
+        </style>
+    </h:head>
+
+    <h:body>       
+        <!-- Lo que escribamos aquí NO aquí se va a renderizar. -->
+        Esto seguro que no lo ves.
+
+
+        <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                        template="/welcomePrimefaces.xhtml"
+                        xmlns:p="http://primefaces.org/ui"
+                        xmlns:h="http://xmlns.jcp.org/jsf/html">
+            <ui:define name="top">
+                Mantenimiento Cliente
+            </ui:define>
+
+            <ui:define name="left">
+                Sidebar Content
+            </ui:define>
+
+            <ui:define name="content">              
+                <h:form id="form">      
+                    <p:growl id="growl" life="2000" />
+                    <p:panelGrid columns ="2">
+
+                        <p:outputLabel value="ID" class="label"/>            
+                        <p:inputText   value="#{empleadoView.idEmple}"/>  
+
+                        <p:outputLabel value="NOMBRES" class="label"/>
+                        <p:inputText   value="${empleadoView.nombres}"/>
+
+                        <p:outputLabel value="TELEFONO" class="label"/>                           
+                        <p:inputText   value="${empleadoView.telefono}"/>                                                               
+                    </p:panelGrid>
+                    <p:commandButton value="Guardar" id="withIcon" action="#{empleadoView.insertarEmpleado()}" update="growl" style="margin-right:20px;" icon="pi pi-save" />
+                
+                <p:separator></p:separator>
+                                  
+                    <p:panel>
+                        <h:panelGrid>
+                            <p:dataTable id="dt_Empleado" var = "listEmpleado" widgetVar="dt_Empleado"
+                                         rows="2"
+                                         paginator="true"
+                                         paginatorPosition="bottom"
+                                         scrollable="true"
+                                         value="#{empleadoView.listarEmp}"
+                                         editable="true"
+                                         selectionMode="multiple"
+                                         rowKey="#{empleadoView.idEmple}"
+                                         >                                                                                 
+                                <p:column headerText="ID" sortBy="#{listEmpleado.idEmple}">
+                                    <h:outputText value="#{listEmpleado.idEmple}"/>
+                                </p:column>                            
+                                <p:column headerText="NOMBRES" >                              
+                                    <h:outputText value="#{listEmpleado.nombres}"/>                              
+                                </p:column>
+                                <p:column headerText="TELEFONO" >
+                                    <h:outputText value="#{listEmpleado.telefono}"/>
+                                </p:column>                             
+                                <p:column style="width:32px;text-align: center">
+                                    <p:commandButton update=":form:carDetail" oncomplete="PF('carDialog').show()" icon="pi pi-pencil" title="View">
+                                        <f:setPropertyActionListener value="Aqui iba em" target="#{empleadoView.em}" />
+                                    </p:commandButton>
+                                </p:column>
+                            </p:dataTable>
+                        </h:panelGrid>                        
+                    </p:panel>
+                <p:dialog header="Car Info" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" appendTo="@(body)">
+                            <p:outputPanel id="carDetail" style="text-align:center;">
+                                <p:panelGrid  columns="2" rendered="#{not empty empleadoView.em}" columnClasses="label,value">
+                                    <f:facet name="header">
+                                        <!--<p:graphicImage name="demo/images/car/{dtSelectionView.selectedCar.brand}-big.gif"/> -->
+                                    </f:facet>
+
+                                    <h:outputText value="Id:" />
+                                    <h:outputText value="#{empleadoView.idEmple}" />
+
+                                    <h:outputText value="NOMBRES: " />
+                                    <h:outputText value="#{empleadoView.nombres}" />
+
+                                    <h:outputText value="TELEFONO: " />
+                                    <h:outputText value="#{empleadoView.telefono}"/>
+
+                                </p:panelGrid>
+                            </p:outputPanel>
+                        </p:dialog>          
+                </h:form>
+            </ui:define>
+
+            <ui:define name="bottom">
+                Universidad Tecnológica Israel
+            </ui:define>
+
+        </ui:composition>
+    </h:body>
+</html>
+
+
