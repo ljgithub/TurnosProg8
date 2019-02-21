@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <style type="text/css">
+        .ui-row-editor .ui-row-editor-pencil {
+            margin-left:8px;
+        }
+    </style>
 
     <body>       
         <!-- Lo que escribamos aquí NO aquí se va a renderizar. -->
@@ -23,44 +30,60 @@
                 <h:form>      
                     <p:growl id="growl" life="2000" />
                     <p:panelGrid columns ="2" >
-                        
-                                                 
+
+
                         <p:outputLabel value="NOMBRES" class="label"/>
                         <p:inputText   value="${empleadoView.nombres}"/>
-                        
+
                         <p:outputLabel value="TELEFONO" class="label"/>                          
                         <p:inputText   value="${empleadoView.telefono}"/> 
-                        
-                         <!--<p:outputLabel value="ID" class="label"/>-->           
-                        <!--<p:inputText   value="#{empleadoView.idEmple}"/>-->
-                        
+
+                        <!--<p:outputLabel value="ID" class="label"/>-->           
+                       <!--<p:inputText   value="#{empleadoView.idEmple}"/>-->
+
                     </p:panelGrid>
                     <p:commandButton value="Guardar" id="withIcon" action="#{empleadoView.insertarEmpleado()}" update="growl" style="margin-right:20px;" icon="pi pi-save" />
                 </h:form>
 
                 <p:separator></p:separator>
-                <p:panel>
-                    <h:panelGrid>
-                        <p:dataTable id="dt_Empleado" var = "listEmpleado" widgetVar="dt_Empleado"
-                                     rows="3"
-                                     paginator="true"
-                                     paginatorPosition="bottom"
-                                     scrollable="true"
-                                     value="#{empleadoView.listarEmp}"
-                                     >
-                            <p:column headerText="ID" sortBy="#{listEmpleado.idEmple}">
-                                <h:outputText value="#{listEmpleado.idEmple}"/>
-                            </p:column>                            
-                            <p:column headerText="NOMBRES" >
-                                <h:outputText value="#{listEmpleado.nombres}"/>
-                            </p:column>
-                            <p:column headerText="TELEFONO" >
-                                <h:outputText value="#{listEmpleado.telefono}"/>
-                            </p:column>                           
-                        </p:dataTable>
-                    </h:panelGrid>
+                <h:form id="form">
+                    <p:growl id="msgs" showDetail="true"/>
+                    <p:panel>
+                        <h:panelGrid>
+                            <p:dataTable id="dt_Empleado" var = "listEmpleado" widgetVar="dt_Empleado"
+                                         rows="3"
+                                         paginator="true"
+                                         paginatorPosition="bottom"
+                                         scrollable="true"
+                                         value="#{empleadoView.listarEmp}"
+                                         editable="true"
+                                         >
 
-                </p:panel>
+
+
+                                <p:column headerText="ID" sortBy="#{listEmpleado.idEmple}">
+                                    <p:cellEditor>                                        
+                                        <f:facet name="ouput"><h:outputText value="#{listEmpleado.idEmple}"/></f:facet>
+                                        <f:facet name="input"><p:inputText id="modelInput"  value="#{listEmpleado.idEmple}" style="width: 96%"/></f:facet>
+                                    </p:cellEditor>                                        
+                                </p:column>                            
+                                <p:column headerText="NOMBRES" >
+                                    <h:outputText value="#{listEmpleado.nombres}"/>
+                                </p:column>
+                                <p:column headerText="TELEFONO" >
+                                    <h:outputText value="#{listEmpleado.telefono}"/>
+                                </p:column>                           
+                            </p:dataTable>
+                        </h:panelGrid>
+
+                    </p:panel>
+                    <!--<p:contextMenu for="dt_Empleado" widgetVar="cMenu">   
+                        <p:menuitem value="Edit Cell" icon="pi pi-search" onclick="PF('dt_Empleado').showCellEditor();return false;"/>  
+                        <p:menuitem value="Hide Menu" icon="pi pi-times" onclick="PF('cMenu').hide()"/>  
+                    </p:contextMenu> -->
+                </h:form>
+
+
             </ui:define>
 
             <ui:define name="bottom">

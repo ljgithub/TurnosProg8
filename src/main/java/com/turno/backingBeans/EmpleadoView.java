@@ -13,8 +13,12 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import org.primefaces.event.CellEditEvent;
+import org.primefaces.event.RowEditEvent;
 
 /**
  *
@@ -45,6 +49,8 @@ public class EmpleadoView implements Serializable {
             Logger.getLogger(EmpleadoView.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+     
 
     public void insertarEmpleado() {
         try {
@@ -113,4 +119,14 @@ public class EmpleadoView implements Serializable {
         this.listarEmp = listarEmp;
     }
 
+    /* public void editarCelda(CellEditEvent event) {
+        Object oldValue = event.getOldValue();
+        Object newValue = event.getNewValue();
+         
+        if(newValue != null && !newValue.equals(oldValue)) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+    }*/
+    
 }
