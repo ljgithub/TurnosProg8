@@ -9,6 +9,7 @@ import com.turno.controlador.IEmpleadoControlador;
 import com.turno.controladorImpl.EmpleadoControladorImpl;
 import com.turno.modelo.Entidades.Empleado;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,7 +18,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
 
 /**
@@ -34,6 +34,7 @@ public class EmpleadoView implements Serializable {
     private Empleado em;
     private IEmpleadoControlador ie;
     private List<Empleado> listarEmp;
+    private List<EmpleadoView> listaEmV;
 
     public EmpleadoView() {
 
@@ -49,8 +50,6 @@ public class EmpleadoView implements Serializable {
             Logger.getLogger(EmpleadoView.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-     
 
     public void insertarEmpleado() {
         try {
@@ -60,10 +59,40 @@ public class EmpleadoView implements Serializable {
             em.setNombres(nombres);
             em.setTelefono(telefono);
             ie.insertarEmpleado(em);
-            listarEmpleados();                     
+            listarEmpleados();
         } catch (Exception ex) {
             Logger.getLogger(EmpleadoView.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public void actualizar(RowEditEvent event) {
+        try {
+            Empleado e = (Empleado) event.getObject();
+            e.setNombres(nombres);
+            e.setTelefono(telefono);
+            ie.actualizarEmpleado(e);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Registro Actualizado"));
+        } catch (Exception e) {
+            System.out.println("Error : " + e.getStackTrace().toString());
+        }
+
+    }
+
+    public String eliminar(Empleado em) {
+        try {
+            ie.eliminar(em);
+            listarEmpleados();  
+            return "Eliminado";
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage("No se pudo eliminar causa: " + e.getMessage()));
+            return "Fallido";
+        }
+
+    }
+
+    public void cancelar(RowEditEvent event) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Opción Cancelada"));
     }
 
     public List<Empleado> listarEmpleados() throws Exception {
@@ -119,14 +148,4 @@ public class EmpleadoView implements Serializable {
         this.listarEmp = listarEmp;
     }
 
-    /* public void editarCelda(CellEditEvent event) {
-        Object oldValue = event.getOldValue();
-        Object newValue = event.getNewValue();
-         
-        if(newValue != null && !newValue.equals(oldValue)) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-        }
-    }*/
-    
 }

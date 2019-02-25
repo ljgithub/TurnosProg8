@@ -35,8 +35,8 @@ public class Empleado {
     private String nombres;
     @Column(name = "telefono")
     private String telefono;
- 
-    
+        
+     
     @OneToMany (cascade = CascadeType.ALL, mappedBy="empleado")
     private List<TurnosVirtuales> turnosVirtuales = new ArrayList<>();
     

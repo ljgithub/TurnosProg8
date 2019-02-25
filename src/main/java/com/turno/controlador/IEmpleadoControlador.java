@@ -17,7 +17,7 @@ import javax.persistence.Tuple;
 public interface IEmpleadoControlador {
     public void insertarEmpleado(Empleado empleado) throws Exception ;
     public boolean actualizarEmpleado(Empleado empleado)throws Exception;
-    public boolean eliminar(int id)throws Exception;
+    public boolean eliminar(Empleado empleado)throws Exception;
     public List<Empleado> listarEmpleado()throws Exception ;
     public List<Empleado> getEmpleados()throws Exception;
     public Empleado getEmpleado(int id)throws Exception;

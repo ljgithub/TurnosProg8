@@ -10,6 +10,7 @@ import com.turno.modelo.Entidades.Empleado;
 import java.beans.Statement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import javax.persistence.Tuple;
 import javax.persistence.TypedQuery;
@@ -56,8 +57,17 @@ public class EmpleadoDAOImpl extends GenericDAO<Empleado> implements IEmpleadoDA
     }
 
     
-    public boolean eliminar(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean eliminar(Empleado empleado) {
+        try {
+            this.beginTransaction();
+            this.delete(empleado);
+            this.commit();
+            this.closeTransaction();
+            return true;
+        } catch (Exception e) {
+            System.out.println("Error:" + e.getStackTrace());
+            return false;                 
+        }
     }
 
     
@@ -78,7 +88,7 @@ public class EmpleadoDAOImpl extends GenericDAO<Empleado> implements IEmpleadoDA
     
     public List<Empleado> listarEmpleado() {
         this.beginTransaction();
-        List<Empleado> lista= this.findAll();
+        List<Empleado> lista= this.findAll();        
         this.closeTransaction();
         return lista;
     }

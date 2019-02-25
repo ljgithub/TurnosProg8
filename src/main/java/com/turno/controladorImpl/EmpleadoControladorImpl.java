@@ -40,15 +40,26 @@ public class EmpleadoControladorImpl implements IEmpleadoControlador {
         return true;
     }
 
-    public boolean eliminar(int id) throws Exception {
+    public boolean eliminar(Empleado empleado) throws Exception {
         try {
             IEmpleadoDAO sql = new EmpleadoDAOImpl(Empleado.class);
-            sql.eliminar(id);
+            sql.eliminar(empleado);
         } catch (Exception e) {
             System.out.println("Error : " + e.getMessage());
             return false;
         }
         return true;
+    }
+    
+    public Empleado listarEmpleadosParametros(int id) {
+        try {
+            IEmpleadoDAO sql = new EmpleadoDAOImpl(Empleado.class);
+            return sql.listarEmpleadosParametros(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 
     public List<Empleado> getEmpleados() throws Exception {
@@ -96,19 +107,7 @@ public class EmpleadoControladorImpl implements IEmpleadoControlador {
         throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose
         // Tools | Templates.
     }
-
-    public Empleado listarEmpleadosParametros(int id) {
-        try {
-            EmpleadoDAOImpl sql = new EmpleadoDAOImpl(Empleado.class);
-            return sql.listarEmpleadosParametros(id);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-
-    }
-
+    
     public Empleado listarEmpleadosParametrosCT(int id) {
         throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose
         // Tools | Templates.

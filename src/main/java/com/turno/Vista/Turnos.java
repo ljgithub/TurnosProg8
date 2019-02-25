@@ -33,10 +33,10 @@ public class Turnos {
     public static void main(String[] args) {
 
         Helpers h = new Helpers();
-        //h.crearColaboradores(5);
+        h.crearColaboradores(25);
         //h.crearGrupos(5);
         
-        h.crearHorarioMensualColaborador(1, 1, 1);
+        /*h.crearHorarioMensualColaborador(1, 1, 1);
         h.crearHorarioMensualColaborador(2, 1, 1);
         h.crearHorarioMensualColaborador(3, 1, 1);
         h.crearHorarioMensualColaborador(4, 1, 1);
